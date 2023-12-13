@@ -28,7 +28,7 @@ test.describe('Platform HTTPS Support Test', () => {
     test(`should support HTTPS in ${browserType.name()}`, async ({ page }) => {
       // Access the platform page
       await page.goto(baseUrl);
-
+      await page.waitForTimeout(5000);
       // Check if the URL starts with 'https://'
       const url = await page.url();
       expect(url.startsWith('https://')).toBe(true);

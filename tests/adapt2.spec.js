@@ -34,7 +34,7 @@ test.describe('User Registration Test', () => {
       // Enter credentials in both password and username fields
       await page.fill('[name="firstname"]', 'dimtest');
       await page.fill('[name="lastname"]', 'Usertest');
-      await page.fill('[name="email"]', 'dimmittestuser97@example.com');
+      await page.fill('[name="email"]', 'dimmittestuser100@example.com');
       await page.fill('[name="password"]', 'StrongPassword123');
       await page.fill('[name="password_confirmation"]', 'StrongPassword123');
 
