@@ -1,0 +1,478 @@
+{
+	"info": {
+		"_postman_id": "a9c01d0d-4c70-48c8-9e0a-c8c7777bebb8",
+		"name": "Adaptivist_API_Automation",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21838916"
+	},
+	"item": [
+		{
+			"name": "Get users",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Get a valid user\", function(){\r",
+							"// Parse the response JSON\r",
+							"var responseBody = pm.response.json();\r",
+							"\r",
+							"// Find the user with the last name \"Holt\" in the response data\r",
+							"var userWithLastNameHolt = responseBody.data.find(function(user) {\r",
+							"    return user.last_name === \"Holt\";\r",
+							"});\r",
+							"\r",
+							"// Extract and save the email to a variable\r",
+							"if (userWithLastNameHolt) {\r",
+							"    var userEmail = userWithLastNameHolt.email;\r",
+							"    pm.collectionVariables.set(\"userEmail\", userEmail);\r",
+							"    console.log(\"User Email:\", userEmail);\r",
+							"} else {\r",
+							"    console.log(\"User with last name 'Holt' not found in the response.\");\r",
+							"}\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "authority",
+						"value": "reqres.in"
+					},
+					{
+						"key": "accept",
+						"value": "*/*"
+					},
+					{
+						"key": "accept-language",
+						"value": "en-US,en;q=0.9,no;q=0.8"
+					},
+					{
+						"key": "content-type",
+						"value": "application/json"
+					},
+					{
+						"key": "cookie",
+						"value": "_gid=GA1.2.1573161922.1702542964; __stripe_mid=b7be3674-0b2d-4050-9623-7127dc2b817d383b25; __stripe_sid=597ef040-fe4a-445d-84c6-1bf347476abd0a9024; _ga_CESXN06JTW=GS1.1.1702542964.1.1.1702543012.0.0.0; _ga=GA1.1.1440294835.1702542964; _ga_WSM10MMEKC=GS1.2.1702542964.1.1.1702543012.0.0.0"
+					},
+					{
+						"key": "referer",
+						"value": "https://reqres.in/"
+					},
+					{
+						"key": "sec-ch-ua",
+						"value": "\"Not_A Brand\";v=\"8\", \"Chromium\";v=\"120\", \"Google Chrome\";v=\"120\""
+					},
+					{
+						"key": "sec-ch-ua-mobile",
+						"value": "?0"
+					},
+					{
+						"key": "sec-ch-ua-platform",
+						"value": "\"Windows\""
+					},
+					{
+						"key": "sec-fetch-dest",
+						"value": "empty"
+					},
+					{
+						"key": "sec-fetch-mode",
+						"value": "cors"
+					},
+					{
+						"key": "sec-fetch-site",
+						"value": "same-origin"
+					},
+					{
+						"key": "user-agent",
+						"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+					}
+				],
+				"url": {
+					"raw": "https://reqres.in/api/users?delay=3",
+					"protocol": "https",
+					"host": [
+						"reqres",
+						"in"
+					],
+					"path": [
+						"api",
+						"users"
+					],
+					"query": [
+						{
+							"key": "delay",
+							"value": "3"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create new user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Parse the response JSON if responseBody is not already defined\r",
+							"pm.test(\" Capturing values \",function() {\r",
+							"    let responseBody = pm.response.json();\r",
+							"    let userId = responseBody.id;\r",
+							"    pm.collectionVariables.set(\"userId\", userId);\r",
+							"    console.log(\"User ID:\", userId); \r",
+							"});\r",
+							"\r",
+							"pm.test(\" Capturing name and job\",function() {\r",
+							"    let responseBody = pm.response.json();\r",
+							"    let name = responseBody.name;\r",
+							"    let job = responseBody.job;\r",
+							"    pm.collectionVariables.set(\"name\", name);\r",
+							"    console.log(\"Name is:\", name); \r",
+							"    pm.collectionVariables.set(\"job\", job);\r",
+							"    console.log(\"Job is:\", job); \r",
+							"});\r",
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "authority",
+						"value": "reqres.in"
+					},
+					{
+						"key": "accept",
+						"value": "*/*"
+					},
+					{
+						"key": "accept-language",
+						"value": "en-US,en;q=0.9,no;q=0.8"
+					},
+					{
+						"key": "content-type",
+						"value": "application/json"
+					},
+					{
+						"key": "cookie",
+						"value": "_gid=GA1.2.1573161922.1702542964; __stripe_mid=b7be3674-0b2d-4050-9623-7127dc2b817d383b25; _ga_CESXN06JTW=GS1.1.1702542964.1.1.1702543012.0.0.0; _ga=GA1.1.1440294835.1702542964; _ga_WSM10MMEKC=GS1.2.1702542964.1.1.1702543012.0.0.0"
+					},
+					{
+						"key": "origin",
+						"value": "https://reqres.in"
+					},
+					{
+						"key": "referer",
+						"value": "https://reqres.in/"
+					},
+					{
+						"key": "sec-ch-ua",
+						"value": "\"Not_A Brand\";v=\"8\", \"Chromium\";v=\"120\", \"Google Chrome\";v=\"120\""
+					},
+					{
+						"key": "sec-ch-ua-mobile",
+						"value": "?0"
+					},
+					{
+						"key": "sec-ch-ua-platform",
+						"value": "\"Windows\""
+					},
+					{
+						"key": "sec-fetch-dest",
+						"value": "empty"
+					},
+					{
+						"key": "sec-fetch-mode",
+						"value": "cors"
+					},
+					{
+						"key": "sec-fetch-site",
+						"value": "same-origin"
+					},
+					{
+						"key": "user-agent",
+						"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"name\":\"Api_Automation\",\"job\":\"Adaptivist\"}"
+				},
+				"url": {
+					"raw": "https://reqres.in/api/users",
+					"protocol": "https",
+					"host": [
+						"reqres",
+						"in"
+					],
+					"path": [
+						"api",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Place new user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Asserting name and job\",function() {\r",
+							"    let responseBody = pm.response.json();\r",
+							"    let name = responseBody.name;\r",
+							"    let job = responseBody.job;\r",
+							"    pm.expect(name).is.equal(\"Api_Automation\") && pm.expect(job).is.equal(\"Adaptivist\");\r",
+							"    console.log(\"Name is :\",name);\r",
+							"    console.log(\"Job is :\",job);\r",
+							"\r",
+							"});\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "authority",
+						"value": "reqres.in"
+					},
+					{
+						"key": "accept",
+						"value": "*/*"
+					},
+					{
+						"key": "accept-language",
+						"value": "en-US,en;q=0.9,no;q=0.8"
+					},
+					{
+						"key": "content-type",
+						"value": "application/json"
+					},
+					{
+						"key": "cookie",
+						"value": "_gid=GA1.2.1573161922.1702542964; __stripe_mid=b7be3674-0b2d-4050-9623-7127dc2b817d383b25; _ga_CESXN06JTW=GS1.1.1702545146.2.1.1702545147.0.0.0; _ga=GA1.1.1440294835.1702542964; _ga_WSM10MMEKC=GS1.2.1702545147.2.0.1702545147.0.0.0"
+					},
+					{
+						"key": "origin",
+						"value": "https://reqres.in"
+					},
+					{
+						"key": "referer",
+						"value": "https://reqres.in/"
+					},
+					{
+						"key": "sec-ch-ua",
+						"value": "\"Not_A Brand\";v=\"8\", \"Chromium\";v=\"120\", \"Google Chrome\";v=\"120\""
+					},
+					{
+						"key": "sec-ch-ua-mobile",
+						"value": "?0"
+					},
+					{
+						"key": "sec-ch-ua-platform",
+						"value": "\"Windows\""
+					},
+					{
+						"key": "sec-fetch-dest",
+						"value": "empty"
+					},
+					{
+						"key": "sec-fetch-mode",
+						"value": "cors"
+					},
+					{
+						"key": "sec-fetch-site",
+						"value": "same-origin"
+					},
+					{
+						"key": "user-agent",
+						"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"name\":\"{{name}}\",\"job\":\"{{job}}\"}"
+				},
+				"url": {
+					"raw": "https://reqres.in/api/users/2",
+					"protocol": "https",
+					"host": [
+						"reqres",
+						"in"
+					],
+					"path": [
+						"api",
+						"users",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Check registered user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"//Checking that only defined users can succed at registration\r",
+							"\r",
+							"pm.test(\"Check registration \", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.error).to.eql(\"Note: Only defined users succeed registration\");\r",
+							"    console.log(jsonData.error);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "authority",
+						"value": "reqres.in"
+					},
+					{
+						"key": "accept",
+						"value": "*/*"
+					},
+					{
+						"key": "accept-language",
+						"value": "en-US,en;q=0.9,no;q=0.8"
+					},
+					{
+						"key": "content-type",
+						"value": "application/json"
+					},
+					{
+						"key": "cookie",
+						"value": "_gid=GA1.2.1573161922.1702542964; __stripe_mid=b7be3674-0b2d-4050-9623-7127dc2b817d383b25; _ga_CESXN06JTW=GS1.1.1702545146.2.1.1702545147.0.0.0; _ga=GA1.1.1440294835.1702542964; _ga_WSM10MMEKC=GS1.2.1702545147.2.0.1702545147.0.0.0"
+					},
+					{
+						"key": "origin",
+						"value": "https://reqres.in"
+					},
+					{
+						"key": "referer",
+						"value": "https://reqres.in/"
+					},
+					{
+						"key": "sec-ch-ua",
+						"value": "\"Not_A Brand\";v=\"8\", \"Chromium\";v=\"120\", \"Google Chrome\";v=\"120\""
+					},
+					{
+						"key": "sec-ch-ua-mobile",
+						"value": "?0"
+					},
+					{
+						"key": "sec-ch-ua-platform",
+						"value": "\"Windows\""
+					},
+					{
+						"key": "sec-fetch-dest",
+						"value": "empty"
+					},
+					{
+						"key": "sec-fetch-mode",
+						"value": "cors"
+					},
+					{
+						"key": "sec-fetch-site",
+						"value": "same-origin"
+					},
+					{
+						"key": "user-agent",
+						"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"email\":\"dim.adapt@reqres.in\",\"password\":\"NewPassword\"}"
+				},
+				"url": {
+					"raw": "https://reqres.in/api/register",
+					"protocol": "https",
+					"host": [
+						"reqres",
+						"in"
+					],
+					"path": [
+						"api",
+						"register"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "userId",
+			"value": ""
+		},
+		{
+			"key": "userEmail",
+			"value": ""
+		},
+		{
+			"key": "name",
+			"value": ""
+		},
+		{
+			"key": "job",
+			"value": ""
+		}
+	]
+}
